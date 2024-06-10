@@ -189,7 +189,7 @@ void bacaBiayaTindakan(char *filename) {
 
 
 //buat cek isi linked list sesuain aj nanti sama data strukturny
-// void print() {
+// void printLinkedList() {
 //     biayaTindakan *current = head_biayaTindakan;
 //     while (current != NULL) {
 //         printf("| %-2d | %-15s | %-18d|\n",
@@ -198,10 +198,23 @@ void bacaBiayaTindakan(char *filename) {
 //     }
 // }
 
+void rapikanFormat(){
+    char temp[3];
+    dataPasien *current = head_dataPasien;
+    while (current!= NULL){
+        if (strstr(current->tanggal_lahir,"Jan")!=NULL){
+            temp[0] = current->tanggal_lahir [0];
+            temp[1] = current->tanggal_lahir [1];
+
+        }
+    }
+
+}
+
 int main() {
     bacaDataPasien("DataPMC20232024 - Data Pasien.csv");
     bacaBiayaTindakan("DataPMC20232024 - Biaya Tindakan.csv");
-    bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan");
-    // print();
+    bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
+    // printLinkedList();
     return 0;
 }
