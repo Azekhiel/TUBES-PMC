@@ -47,6 +47,8 @@ void bacaDataPasien(char *filename) {
     }
     char line[255];
     fgets(line, sizeof(line), file);
+    fgets(line, sizeof(line), file);
+
 
     while (fgets(line, sizeof(line), file)) {
         char *token;
@@ -194,7 +196,7 @@ void bacaBiayaTindakan(char *filename) {
 // }
 
 void rapikanFormatDataPasien(){
-    char temp_tanggal[100];
+    char temp_tanggal[255];
     char temp_tahun[10];
     char temp_bulan[16];
     char tahun[20];
@@ -246,32 +248,45 @@ void rapikanFormatDataPasien(){
         else if (strstr(current->tanggal_lahir,"Des")!=NULL){
             strcpy(temp_bulan,"Desember ");
         }
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            temp_tanggal[3] = '\0'; // Null-terminate the string
 
-            if (strrchr(current->tanggal_lahir, '-')!=NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,'-') +1);
-                if (atoi(temp_tahun)<=24){
-                    strcpy(tahun,"20");
-                    strcat(tahun,temp_tahun);                }
-                else{
-                    strcpy(tahun,"19");
-                    strcat(tahun,temp_tahun);
-                 }                
+            temp_tanggal[0] = current->tanggal_lahir[0];
+            if ((current->tanggal_lahir[1] >= '0' && current->tanggal_lahir[1] <= '9')) {
+                temp_tanggal[1] = current->tanggal_lahir[1];
+                temp_tanggal[2] = ' ';
+            } else {
+                temp_tanggal[1] = ' ';
+                temp_tanggal[2] = '\0';
+            }            
+            temp_tanggal[3] = '\0';
+
+        int temp1 = strlen(current->tanggal_lahir);
+        int j = 0;
+
+        for (int i = temp1 - 4; i < temp1; ++i) {
+            temp_tahun[j] = current->tanggal_lahir[i];
+            ++j;
+        }
+        temp_tahun[j] = '\0';
+
+        if (current->tanggal_lahir[temp1 - 3] == '-') {
+            strcpy(temp_tahun, strrchr(current->tanggal_lahir, '-') + 1);
+            if (atoi(temp_tahun) <= 24) {
+                strcpy(tahun, "20");
+                strcat(tahun, temp_tahun);
+            } else {
+                strcpy(tahun, "19");
+                strcat(tahun, temp_tahun);
             }
-            else if (strrchr(current->tanggal_lahir,' ')!=NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,' ') +1);
-            }        
+        } else {
+            strcpy(tahun, temp_tahun);
+        }
 
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);  
+        strcat(temp_tanggal, temp_bulan);
+        strcat(temp_tanggal, tahun);
+        strcpy(current->tanggal_lahir, temp_tanggal);
 
-            current = current->next;
+        current = current->next;
     }
-
 }
 
 
@@ -328,32 +343,44 @@ void rapikanFormatRiwayatDatang_Tanggal(){
         else if (strstr(current->tanggal,"Des")!=NULL){
             strcpy(temp_bulan,"Desember ");
         }
-            temp_tanggal[0] = current->tanggal [0];
-            temp_tanggal[1] = current->tanggal [1];
-            temp_tanggal[2] = ' ';
-            temp_tanggal[3] = '\0'; // Null-terminate the string
+            temp_tanggal[0] = current->tanggal[0];
+            if ((current->tanggal[1] >= '0' && current->tanggal[1] <= '9')) {
+                temp_tanggal[1] = current->tanggal[1];
+                temp_tanggal[2] = ' ';
+            } else {
+                temp_tanggal[1] = ' ';
+                temp_tanggal[2] = '\0';
+            }            
+            temp_tanggal[3] = '\0';
 
-            if (strrchr(current->tanggal, '-')!=NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal,'-') +1);
-                if (atoi(temp_tahun)<=24){
-                    strcpy(tahun,"20");
-                    strcat(tahun,temp_tahun);                }
-                else{
-                    strcpy(tahun,"19");
-                    strcat(tahun,temp_tahun);
-                 }                
+        int temp1 = strlen(current->tanggal);
+        int j = 0;
+
+        for (int i = temp1 - 4; i < temp1; ++i) {
+            temp_tahun[j] = current->tanggal[i];
+            ++j;
+        }
+        temp_tahun[j] = '\0';
+
+        if (current->tanggal[temp1 - 3] == '-') {
+            strcpy(temp_tahun, strrchr(current->tanggal, '-') + 1);
+            if (atoi(temp_tahun) <= 24) {
+                strcpy(tahun, "20");
+                strcat(tahun, temp_tahun);
+            } else {
+                strcpy(tahun, "19");
+                strcat(tahun, temp_tahun);
             }
-            else if (strrchr(current->tanggal,' ')!=NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal,' ') +1);
-            }        
+        } else {
+            strcpy(tahun, temp_tahun);
+        }
 
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,tahun);
-            strcpy(current->tanggal, temp_tanggal);  
+        strcat(temp_tanggal, temp_bulan);
+        strcat(temp_tanggal, tahun);
+        strcpy(current->tanggal, temp_tanggal);
 
-            current = current->next;
+        current = current->next;
     }
-
 }
 
 void rapikanFormatRiwayatDatang_Kontrol(){
@@ -409,34 +436,45 @@ void rapikanFormatRiwayatDatang_Kontrol(){
         else if (strstr(current->kontrol,"Des")!=NULL){
             strcpy(temp_bulan,"Desember ");
         }
-            temp_kontrol[0] = current->kontrol [0];
-            temp_kontrol[1] = current->kontrol [1];
-            temp_kontrol[2] = ' ';
-            temp_kontrol[3] = '\0'; // Null-terminate the string
+            temp_kontrol[0] = current->kontrol[0];
+            if ((current->kontrol[1] >= '0' && current->kontrol[1] <= '9')) {
+                temp_kontrol[1] = current->kontrol[1];
+                temp_kontrol[2] = ' ';
+            } else {
+                temp_kontrol[1] = ' ';
+                temp_kontrol[2] = '\0';
+            }            
+            temp_kontrol[3] = '\0';
 
-            if (strrchr(current->kontrol, '-')!=NULL){
-                strcpy(temp_tahun,strrchr(current->kontrol,'-') +1);
-                if (atoi(temp_tahun)<=24){
-                    strcpy(tahun,"20");
-                    strcat(tahun,temp_tahun);                }
-                else{
-                    strcpy(tahun,"19");
-                    strcat(tahun,temp_tahun);
-                 }                
+        int temp1 = strlen(current->kontrol);
+        int j = 0;
+
+        for (int i = temp1 - 4; i < temp1; ++i) {
+            temp_tahun[j] = current->kontrol[i];
+            ++j;
+        }
+        temp_tahun[j] = '\0';
+
+        if (current->kontrol[temp1 - 3] == '-') {
+            strcpy(temp_tahun, strrchr(current->kontrol, '-') + 1);
+            if (atoi(temp_tahun) <= 24) {
+                strcpy(tahun, "20");
+                strcat(tahun, temp_tahun);
+            } else {
+                strcpy(tahun, "19");
+                strcat(tahun, temp_tahun);
             }
-            else if (strrchr(current->kontrol,' ')!=NULL){
-                strcpy(temp_tahun,strrchr(current->kontrol,' ') +1);
-            }        
+        } else {
+            strcpy(tahun, temp_tahun);
+        }
 
-            strcat(temp_kontrol,temp_bulan);
-            strcat(temp_kontrol,tahun);
-            strcpy(current->kontrol, temp_kontrol);  
+        strcat(temp_kontrol, temp_bulan);
+        strcat(temp_kontrol, tahun);
+        strcpy(current->kontrol, temp_kontrol);
 
-            current = current->next;
+        current = current->next;
     }
-
 }
-
 
 void printDataPasien() {
     printf("| No | Nama Lengkap     | Alamat             | Kota          | Tempat Lahir   | Tanggal Lahir | Umur | No BPJS    | ID        |\n");
@@ -457,6 +495,6 @@ int baca() {
     rapikanFormatDataPasien();
     rapikanFormatRiwayatDatang_Tanggal();
     rapikanFormatRiwayatDatang_Kontrol();
-    // printDataPasien();
+    printDataPasien();
     return 0;
 }
