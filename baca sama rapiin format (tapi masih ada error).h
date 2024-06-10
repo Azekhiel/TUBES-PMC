@@ -95,13 +95,6 @@ void bacaDataPasien(char *filename) {
 }
 
 void bacaRiwayatDatang(char *filename) {
-    // int no;
-    // char tangga[255];
-    // char id[255];
-    // char diagnosis[255];
-    // char tindakan[255];
-    // char kontrol[255];
-    // int biaya;
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("File tidak ada %s\n", filename);
