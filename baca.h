@@ -477,8 +477,6 @@ void rapikanFormatRiwayatDatang_Kontrol(){
 }
 
 void printDataPasien() {
-    printf("| No | Nama Lengkap     | Alamat             | Kota          | Tempat Lahir   | Tanggal Lahir | Umur | No BPJS    | ID        |\n");
-    printf("------------------------------------------------------------------------------------------------------------------------------\n");
     dataPasien *current = head_dataPasien;
     while (current != NULL) {
         printf("| %-2d | %-15s | %-18s | %-13s | %-14s | %-13s | %-4d | %-10s | %-9s |\n",
