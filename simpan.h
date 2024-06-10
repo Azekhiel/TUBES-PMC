@@ -12,7 +12,7 @@ void simpanDataPasien(char *filename) {
     dataPasien *current = head_dataPasien;
     fprintf(file, "%s,%s,%s,%s,%s,%s,%s,%s,%s\n", header[0],header[1],header[2],header[3],header[4],header[5],header[6],header[7],header[8]);    
     while (current != NULL) {
-        fprintf(file, "%d,%s,%s,%s,%s,%s,%d,%s,%s", current->no, current->nama, current->alamat, current->kota,
+        fprintf(file, "%d,%s,%s,%s,%s,%s,%d,%s,%s\n", current->no, current->nama, current->alamat, current->kota,
                 current->tempat_lahir, current->tanggal_lahir, current->umur, current->noBPJS, current->id);
         current = current->next;
     }
@@ -52,7 +52,7 @@ void simpanRiwayatDatang(char *filename) {
     fclose(file);
 }
 
-int main() {
+int simpan() {
     baca();
     simpanDataPasien("data_pasien.csv");
     simpanBiayaTindakan("biaya_tindakan.csv");
