@@ -40,6 +40,7 @@ typedef struct riwayatDatang{
 riwayatDatang *head_riwayatDatang = NULL;
 
 void bacaDataPasien(char *filename) {
+    int temp;
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("File tidak ada %s\n", filename);
@@ -79,6 +80,9 @@ void bacaDataPasien(char *filename) {
 
         token = strtok(NULL, ",");
         strcpy(newNode->id, token);
+        temp = strlen(newNode->id);
+        newNode->id[temp-1] = '\0';
+        newNode->id[temp-2] = '\0';
 
         newNode->next = NULL;
         if (head_dataPasien == NULL) {
@@ -183,17 +187,6 @@ void bacaBiayaTindakan(char *filename) {
 
     fclose(file);
 }
-
-
-//buat cek isi linked list sesuain aj nanti sama data strukturny
-// void printLinkedList() {
-//     biayaTindakan *current = head_biayaTindakan;
-//     while (current != NULL) {
-//         printf("| %-2d | %-15s | %-18d|\n",
-//                current->no, current->aktivitas, current->biaya);
-//         current = current->next;
-//     }
-// }
 
 void rapikanFormatDataPasien(){
     char temp_tanggal[255];
@@ -493,6 +486,6 @@ int baca() {
     rapikanFormatDataPasien();
     rapikanFormatRiwayatDatang_Tanggal();
     rapikanFormatRiwayatDatang_Kontrol();
-    // printDataPasien();
+    printDataPasien();
     return 0;
 }
