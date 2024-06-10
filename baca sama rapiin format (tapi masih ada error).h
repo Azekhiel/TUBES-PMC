@@ -202,66 +202,26 @@ void rapikanFormat(){
     char temp_tanggal[100];
     char temp_tahun[10];
     char temp_bulan[16];
+    char tahun[20];
     dataPasien *current = head_dataPasien;
     while (current!= NULL){
         if (strstr(current->tanggal_lahir,"Jan")!=NULL){
             strcpy(temp_bulan,"Januari ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }                
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
         }
-        
         else if (strstr(current->tanggal_lahir,"Feb")!=NULL){
             strcpy(temp_bulan,"Februari ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Mar")!=NULL){
             strcpy(temp_bulan,"Maret ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Apr")!=NULL){
@@ -269,183 +229,110 @@ void rapikanFormat(){
             temp_tanggal[0] = current->tanggal_lahir [0];
             temp_tanggal[1] = current->tanggal_lahir [1];
             temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
+            if (strrchr(current->tanggal_lahir,"-")!=NULL){
+                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-") +1);
+                
                 if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
+                    strcpy(tahun,"20");
+                    strcat(tahun,temp_tahun);                }
                 else{
-                    strcat("19",temp_tahun);
-                }
+                    strcpy(tahun,"19");
+                    strcat(tahun,temp_tahun);
+                 }                
             }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+            else if (strrchr(current->tanggal_lahir," ")!=NULL){
+                strcpy(temp_tahun,strrchr(current->tanggal_lahir," ") +1);
+            }
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Mei")!=NULL){
             strcpy(temp_bulan,"Mei ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Jun")!=NULL){
             strcpy(temp_bulan,"Juni ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Jul")!=NULL){
             strcpy(temp_bulan,"Juli ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
 
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Agu")!=NULL){
             strcpy(temp_bulan,"Agustus ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Sep")!=NULL){
             strcpy(temp_bulan,"September ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Okt")!=NULL){
             strcpy(temp_bulan,"Oktober ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Nov")!=NULL){
             strcpy(temp_bulan,"November ");
-            temp_tanggal[0] = current->tanggal_lahir [0];
-            temp_tanggal[1] = current->tanggal_lahir [1];
-            temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
         }
 
         else if (strstr(current->tanggal_lahir,"Des")!=NULL){
             strcpy(temp_bulan,"Desember ");
+
+            // strcat(temp_tanggal,temp_bulan);
+            // strcat(temp_tanggal,temp_tahun);
+            // strcpy(current->tanggal_lahir, temp_tanggal);
+        }
             temp_tanggal[0] = current->tanggal_lahir [0];
             temp_tanggal[1] = current->tanggal_lahir [1];
             temp_tanggal[2] = ' ';
-            strcpy(temp_tahun,strrchr(current->tanggal_lahir," "));
-            if (strrchr(current->tanggal_lahir," ")==NULL){
-                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-"));
-                if (atoi(temp_tahun<=24)){
-                    strcat("20",temp_tahun);
-                }
-                else{
-                    strcat("19",temp_tahun);
-                }
-            }
-            strcat(temp_tanggal,temp_bulan);
-            strcat(temp_tanggal,temp_tahun);
-            strcpy(current->tanggal_lahir, temp_tanggal);
-        }
 
-        current = current->next;
+            if (strrchr(current->tanggal_lahir,"-")!=NULL){
+                strcpy(temp_tahun,strrchr(current->tanggal_lahir,"-") +1);
+                if (atoi(temp_tahun<=24)){
+                    strcpy(tahun,"20");
+                    strcat(tahun,temp_tahun);                }
+                else{
+                    strcpy(tahun,"19");
+                    strcat(tahun,temp_tahun);
+                 }                
+            }
+            else if (strrchr(current->tanggal_lahir," ")!=NULL){
+                strcpy(temp_tahun,strrchr(current->tanggal_lahir," ") +1);
+            }        
+
+            strcat(temp_tanggal,temp_bulan);
+            strcat(temp_tanggal,tahun);
+            strcpy(current->tanggal_lahir, temp_tanggal);        
+            current = current->next;
     }
 
 }
