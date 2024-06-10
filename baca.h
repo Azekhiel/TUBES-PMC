@@ -210,8 +210,8 @@ void rapikanFormat(){
     }
 
 }
-
-int main() {
+//kalo mau tes fungsiny sendiri jangan lupa ganti main()
+int baca() {
     bacaDataPasien("DataPMC20232024 - Data Pasien.csv");
     bacaBiayaTindakan("DataPMC20232024 - Biaya Tindakan.csv");
     bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
