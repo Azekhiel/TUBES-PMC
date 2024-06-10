@@ -3,7 +3,7 @@
 #include <string.h>
 
 //No,Nama Lengkap,Alamat,Kota,Tempat Lahir,Tanggal Lahir,Umur (th),No BPJS,ID Pasien
-typedef struct{
+typedef struct dataPasien{
     int no;
     char nama[255];
     char alamat[255];
@@ -18,7 +18,7 @@ typedef struct{
 dataPasien *head_dataPasien = NULL;
 
 //No,Aktivitas,Biaya (Rp)
-typedef struct{
+typedef struct biayaTindakan{
     int no;
     char aktivitas[255];
     int biaya;
@@ -27,7 +27,7 @@ typedef struct{
 biayaTindakan *head_biayaTindakan = NULL;
 
 //No,Tanggal,ID Pasien,Diagnosis,Tindakan,Kontrol,Biaya (Rp)
-typedef struct{
+typedef struct riwayatDatang{
     int no;
     char tanggal[255];
     char id[255];
@@ -169,7 +169,7 @@ void bacaBiayaTindakan(char *filename) {
         strcpy(newNode->aktivitas, token);
 
         token = strtok(NULL, ",");
-        newNode->biaya = token;
+        newNode->biaya = atoi(token);
 
         newNode->next = NULL;
         if (head_biayaTindakan == NULL) {
@@ -188,7 +188,7 @@ void bacaBiayaTindakan(char *filename) {
 }
 
 
-//buat cek isi linked list sesuain aj nanti sama data strukturny
+// buat cek isi linked list sesuain aj nanti sama data strukturny
 // void printLinkedList() {
 //     biayaTindakan *current = head_biayaTindakan;
 //     while (current != NULL) {
@@ -211,7 +211,7 @@ void rapikanFormat(){
 
 }
 
-int baca() {
+int main() {
     bacaDataPasien("DataPMC20232024 - Data Pasien.csv");
     bacaBiayaTindakan("DataPMC20232024 - Biaya Tindakan.csv");
     bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
