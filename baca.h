@@ -189,7 +189,7 @@ void bacaBiayaTindakan(char *filename) {
 
 
 //buat cek isi linked list sesuain aj nanti sama data strukturny
-// void printLinkedList() {
+// void print() {
 //     biayaTindakan *current = head_biayaTindakan;
 //     while (current != NULL) {
 //         printf("| %-2d | %-15s | %-18d|\n",
@@ -202,6 +202,6 @@ int main() {
     bacaDataPasien("DataPMC20232024 - Data Pasien.csv");
     bacaBiayaTindakan("DataPMC20232024 - Biaya Tindakan.csv");
     bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan");
-    // printLinkedList();
+    // print();
     return 0;
 }
