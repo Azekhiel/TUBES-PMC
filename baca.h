@@ -211,7 +211,7 @@ void rapikanFormat(){
 
 }
 
-int main() {
+int baca() {
     bacaDataPasien("DataPMC20232024 - Data Pasien.csv");
     bacaBiayaTindakan("DataPMC20232024 - Biaya Tindakan.csv");
     bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
