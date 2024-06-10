@@ -486,6 +486,6 @@ int baca() {
     rapikanFormatDataPasien();
     rapikanFormatRiwayatDatang_Tanggal();
     rapikanFormatRiwayatDatang_Kontrol();
-    printDataPasien();
+    // printDataPasien();
     return 0;
 }
