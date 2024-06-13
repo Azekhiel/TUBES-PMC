@@ -86,14 +86,73 @@ void tambah_data_pasien(dataPasien *dp)
 
 void ubah_data_pasien(dataPasien *dp)
 {
-    //belum selesai
-    char ubahid[11],headerdata[13],databaru[255];
+    int ub;
+    char ubahid[11], headerdata[13];
+    char namadpn[50], namablkg[50], jalan[2], nmjln[255], nojln[10];
+    char kdpn[5], nmkt[50], hari[2], bulan[10], tahun[5], bpjsb[13], iddpn[2], idblkg[9];
+
     printf("Masukkan id pasien yang datanya ingin diubah : ");
-    scanf("%s",ubahid);
+    scanf("%s", ubahid);
     printf("Masukkan data yang ingin diubah : ");
-    scanf("%s",headerdata);
-    printf("Masukkan data yang baru : ");
-    scanf("%s",databaru);
+    scanf("%s", headerdata);
+
+    dataPasien *current = dp;
+    while (current != NULL)
+    {
+        if (strcmp(current->id, ubahid) == 0)
+        {
+            if (strcmp(headerdata, "nama") == 0)
+            {
+                printf("Masukkan data nama baru pasien : ");
+                scanf("%s %s", namadpn, namablkg);
+                sprintf(current->nama, "%s %s", namadpn, namablkg);
+            }
+            else if (strcmp(headerdata, "alamat") == 0)
+            {
+                printf("Masukkan data alamat baru pasien : ");
+                scanf("%s %s %s", jalan, nmjln, nojln);
+                sprintf(current->alamat, "%s %s %s", jalan, nmjln, nojln);
+            }
+            else if (strcmp(headerdata, "kota") == 0)
+            {
+                printf("Masukkan data kota baru pasien : ");
+                scanf("%s %s", kdpn, nmkt);
+                sprintf(current->kota, "%s %s", kdpn, nmkt);
+            }
+            else if (strcmp(headerdata, "tempat_lahir") == 0)
+            {
+                printf("Masukkan data tempat lahir baru pasien : ");
+                scanf("%s %s", kdpn, nmkt);
+                sprintf(current->tempat_lahir, "%s %s", kdpn, nmkt);
+            }
+            else if (strcmp(headerdata, "tanggal_lahir") == 0)
+            {
+                printf("Masukkan data tanggal lahir baru pasien : ");
+                scanf("%s %s %s", hari, bulan, tahun);
+                sprintf(current->tanggal_lahir, "%s %s %s", hari, bulan, tahun);
+            }
+            else if (strcmp(headerdata, "umur") == 0)
+            {
+                printf("Masukkan data umur baru pasien : ");
+                scanf("%d", &ub);
+                current->umur = ub;
+            }
+            else if (strcmp(headerdata, "noBPJS") == 0)
+            {
+                printf("Masukkan data nomor BPJS baru pasien : ");
+                scanf("%s", bpjsb);
+                strcpy(current->noBPJS, bpjsb);
+            }
+            else if (strcmp(headerdata, "id") == 0)
+            {
+                printf("Masukkan data id baru pasien : ");
+                scanf("%s %s", iddpn, idblkg);
+                sprintf(current->id, "%s %s", iddpn, idblkg);
+            }
+            break;
+        }
+        current = current->next;
+    }
 }
 
 void hapus_data_pasien(dataPasien *dp)
