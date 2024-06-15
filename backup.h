@@ -40,6 +40,42 @@ void ubahRiwayat(){
         current = current->next;        
     }
 }
+//No,Tanggal,ID Pasien,Diagnosis,Tindakan,Kontrol,Biaya (Rp)
 void tambahRiwayat(){
-    
+        baca();
+    riwayatDatang *current = head_riwayatDatang;
+    riwayatDatang *newNode = (riwayatDatang *)malloc(sizeof(riwayatDatang));
+    newNode->next = NULL;
+
+    int i =1;    
+    if (current == NULL) {
+        head_riwayatDatang = newNode;
+    } 
+    else {
+        while (current->next != NULL) {
+            current = current->next;
+            i++;
+        }
+        current->next = newNode;
+        i++;
+    }    
+    newNode->no = i;
+    printf("Tanggal:");
+    fgets(newNode->tanggal,sizeof(newNode->tanggal),stdin);
+    newNode->tanggal[strcspn(newNode->tanggal, "\n")] = '\0'; 
+    printf("ID Pasien:");
+    fgets(newNode->id,sizeof(newNode->id),stdin);
+    newNode->id[strcspn(newNode->id, "\n")] = '\0'; 
+    printf("Diagnosis:");
+    fgets(newNode->diagnosis,sizeof(newNode->diagnosis),stdin);
+    newNode->diagnosis[strcspn(newNode->diagnosis, "\n")] = '\0';
+
+    printf("Tindakan:");
+    fgets(newNode->tindakan,sizeof(newNode->tindakan),stdin);
+    newNode->tindakan[strcspn(newNode->tindakan, "\n")] = '\0';
+    printf("Kontrol:");
+    fgets(newNode->kontrol,sizeof(newNode->kontrol),stdin);
+    newNode->kontrol[strcspn(newNode->kontrol, "\n")] = '\0';
+    printf("Biaya:");
+    scanf("%d",&newNode->biaya);
 }
