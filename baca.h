@@ -108,6 +108,7 @@ void bacaRiwayatDatang(char *filename) {
     }
     char line[255];
     fgets(line, sizeof(line), file);
+    fgets(line, sizeof(line), file);
 
     while (fgets(line, sizeof(line), file)) {
         char *token;
