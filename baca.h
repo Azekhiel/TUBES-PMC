@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#pragma once
 
 //No,Nama Lengkap,Alamat,Kota,Tempat Lahir,Tanggal Lahir,Umur (th),No BPJS,ID Pasien
 typedef struct dataPasien{
@@ -480,7 +481,7 @@ void printDataPasien() {
     }
 }
 
-int baca() {
+void baca() {
     bacaDataPasien("DataPMC20232024 - Data Pasien.csv");
     bacaBiayaTindakan("DataPMC20232024 - Biaya Tindakan.csv");
     bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
@@ -488,5 +489,4 @@ int baca() {
     rapikanFormatRiwayatDatang_Tanggal();
     rapikanFormatRiwayatDatang_Kontrol();
     // printDataPasien();
-    return 0;
 }
