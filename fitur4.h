@@ -81,7 +81,6 @@ void hitungTahunan() {
 }
 
 void laporan() {
-    baca();
     hitungBulan();
     hitungTahunan();
 }
