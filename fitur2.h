@@ -43,7 +43,6 @@ void ubahRiwayat(){
 }
 //No,Tanggal,ID Pasien,Diagnosis,Tindakan,Kontrol,Biaya (Rp)
 void tambahRiwayat(){
-    baca();
     riwayatDatang *current = head_riwayatDatang;
     riwayatDatang *newNode = (riwayatDatang *)malloc(sizeof(riwayatDatang));
     newNode->next = NULL;
