@@ -49,7 +49,7 @@ void hitungBulan() {
         current = current->next;
     }
 
-    printf("Monthly Revenue Report:\n");
+    printf("Pendapatan Bulanan:\n");
     const char* monthNames[12] = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
     for (int i = 0; i < 12; i++) {
         printf("%s: Rp %d\n", monthNames[i], pendapatanBulanan[i]);
@@ -77,12 +77,11 @@ void hitungTahunan() {
             totalPendapatan+=pendapatanTahunan[i];
         }
     }
-    printf("Pendapatan Rata-Rata Pertahun: %d", totalPendapatan/jumlahTahun);
+    printf("Pendapatan Rata-Rata Pertahun: %d\n", totalPendapatan/jumlahTahun);
 }
 
-int laporan() {
+void laporan() {
     baca();
     hitungBulan();
     hitungTahunan();
-    return 0;
 }
