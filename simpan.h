@@ -55,7 +55,6 @@ void simpanRiwayatDatang(char *filename) {
 }
 
 // void simpan() {
-//     baca();
 //     simpanDataPasien("data_pasien.csv");
 //     simpanRiwayatDatang("riwayat_datang.csv");    
 // }
