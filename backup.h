@@ -5,7 +5,7 @@ void hapusRiwayat(){
     riwayatDatang *prev = NULL;
     char idPasien[255];
     fgets(idPasien,sizeof(idPasien),stdin);
-
+    idPasien[strcspn(idPasien, "\n")] = '\0'; 
     
     while (current!=NULL){
         if (strcmp(current->id,idPasien)==0 && prev!=NULL){
@@ -20,6 +20,7 @@ void ubahRiwayat(){
     riwayatDatang *current = head_riwayatDatang;
     char idPasien[255];
     fgets(idPasien,sizeof(idPasien),stdin);
+    idPasien[strcspn(idPasien, "\n")] = '\0'; 
 
     while (current!=NULL){
         if (strcmp(current->id,idPasien)==0){
@@ -79,3 +80,20 @@ void tambahRiwayat(){
     printf("Biaya:");
     scanf("%d",&newNode->biaya);
 }
+
+void cariRiwayat(){
+    riwayatDatang *current = head_riwayatDatang;
+    char idPasien[255];
+    printf("Masukkan ID Pasien: ");
+    fgets(idPasien,sizeof(idPasien),stdin);
+    idPasien[strcspn(idPasien, "\n")] = '\0'; 
+
+    while (current!=NULL){
+        if (strcmp(current->id,idPasien)==0){
+            printf("Riwayat kedatangan pasien dengan ID %s adalah:\n",current->id);
+            printf("Pasien datang pada tanggal: %s\nDiagnosis pasien: %s\nTindakan yang diterima pasien: %s\nPasien kontrol pada tanggal: %s\n",current->tanggal,current->diagnosis,current->tindakan,current->kontrol);
+            break;
+        }
+        current = current->next;        
+    }
+}   
