@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #pragma once
-
+// Buat pake pake fungsi di header ini tinggal di program utama taro baca() di line paling awal
 //No,Nama Lengkap,Alamat,Kota,Tempat Lahir,Tanggal Lahir,Umur (th),No BPJS,ID Pasien
 typedef struct dataPasien{
     int no;
