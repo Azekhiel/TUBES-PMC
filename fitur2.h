@@ -33,10 +33,6 @@ void ubahRiwayat(){
             fgets(current->tanggal,sizeof(current->tanggal),stdin);
             current->tanggal[strcspn(current->tanggal, "\n")] = '\0'; 
 
-            printf("ID Pasien: ");
-            fgets(current->id,sizeof(current->id),stdin);
-            current->id[strcspn(current->id, "\n")] = '\0'; 
-
             printf("Diagnosis: ");
             fgets(current->diagnosis,sizeof(current->diagnosis),stdin);
             current->diagnosis[strcspn(current->diagnosis, "\n")] = '\0'; 
