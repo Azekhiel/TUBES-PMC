@@ -30,18 +30,28 @@ void ubahRiwayat(){
     while (current!=NULL){
         if (strcmp(current->id,idPasien)==0){
             printf("Tanggal: ");
-            fgets(current->tanggal,sizeof(255),stdin);
+            fgets(current->tanggal,sizeof(current->tanggal),stdin);
+            current->tanggal[strcspn(current->tanggal, "\n")] = '\0'; 
+
             printf("ID Pasien: ");
-            fgets(current->id,sizeof(255),stdin);
+            fgets(current->id,sizeof(current->id),stdin);
+            current->id[strcspn(current->id, "\n")] = '\0'; 
+
             printf("Diagnosis: ");
-            fgets(current->diagnosis,sizeof(255),stdin);
+            fgets(current->diagnosis,sizeof(current->diagnosis),stdin);
+            current->diagnosis[strcspn(current->diagnosis, "\n")] = '\0'; 
+
             printf("Tindakan: ");
-            fgets(current->tindakan,sizeof(255),stdin);
+            fgets(current->tindakan,sizeof(current->tindakan),stdin);
+            current->tindakan[strcspn(current->tindakan, "\n")] = '\0'; 
+
             printf("Kontrol: ");
-            fgets(current->kontrol,sizeof(255),stdin);
+            fgets(current->kontrol,sizeof(current->kontrol),stdin);
+            current->kontrol[strcspn(current->kontrol, "\n")] = '\0'; 
+
             printf("Biaya (Rp): ");
             scanf("%d",&current->biaya);
-            break;
+            getchar();
         }
         current = current->next;        
     }
