@@ -93,7 +93,7 @@ void fitur6() {
 
   // Input dari user date
     int hari, bulan, tahun;
-    printf("Masukkan tanggal sekarang (hari bulan tahun): ");
+    printf("Masukkan tanggal sekarang (DD MM YYYY): ");
     scanf("%d %d %d", &hari, &bulan, &tahun);
 
     // Program menghitung tanggal kedepan (diperlukan untuk mengprint pasien yang perlu datang 1 minggu kedepan)
