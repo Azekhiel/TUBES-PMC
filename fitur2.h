@@ -26,9 +26,11 @@ void ubahRiwayat(){
     printf("Masukkan ID Pasien: ");
     fgets(idPasien,sizeof(idPasien),stdin);
     idPasien[strcspn(idPasien, "\n")] = '\0'; 
+    int i=1;
 
     while (current!=NULL){
         if (strcmp(current->id,idPasien)==0){
+            print("Data Pasien (%s) ke-%d",idPasien,i);
             printf("Tanggal: ");
             fgets(current->tanggal,sizeof(current->tanggal),stdin);
             current->tanggal[strcspn(current->tanggal, "\n")] = '\0'; 
@@ -48,6 +50,7 @@ void ubahRiwayat(){
             printf("Biaya (Rp): ");
             scanf("%d",&current->biaya);
             getchar();
+            i++;
         }
         current = current->next;        
     }
