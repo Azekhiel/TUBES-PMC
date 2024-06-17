@@ -168,6 +168,7 @@ void bacaBiayaTindakan(char *filename) {
         return;
     } 
     char line[255];
+    char temp[255];
     fgets(line, sizeof(line), file);
 
     while (fgets(line, sizeof(line), file)) {
@@ -181,6 +182,14 @@ void bacaBiayaTindakan(char *filename) {
 
         token = strtok(NULL, ",");
         newNode->biaya = atoi(token);
+        if (newNode->biaya ==0){
+            strcpy(temp,token);
+            token =strtok(NULL,",");
+            strcat(temp,token);
+            char *cleaned = temp + 1;
+            cleaned[strlen(cleaned)-2]='\0';
+            newNode->biaya = atoi(cleaned);
+        }
         
 
         newNode->next = NULL;
