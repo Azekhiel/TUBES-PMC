@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "baca.h"
 
-
 // Fungsi untuk mendapatkan angka bulan dari nama bulan 
 int getMonthNumber(const char *namaBulan) {
     if (strcmp(namaBulan, "Januari") == 0) return 1;
@@ -18,31 +17,6 @@ int getMonthNumber(const char *namaBulan) {
     else if (strcmp(namaBulan, "November") == 0) return 11;
     else if (strcmp(namaBulan, "Desember") == 0) return 12;
     else return 0; // Invalid month name
-}
-
-// Fungsi untuk membandingkan tanggal dengan tanggal spesifik (hari, bulan, tahun)
-int compareDates(const char *tanggal, int hari, int bulan, int tahun) {
-    //Fungsi menerima input char tanggal dan membandingkan
-    //return 0 bila char tanggal sama dengan hari bukan tahun
-    //return 1 bila char tanggal > hari bulan tahun
-    //return -1 bila char tanggal < hari bulan tahun
-    int riwayatHari, riwayatBulan, riwayatTahun;
-    char namaBulan[20]; // Untuk menyimpan nama bulan dari string tanggal
-
-    // Membaca tanggal dalam format "hari namaBulan tahun"
-    sscanf(tanggal, "%d %s %d", &riwayatHari, namaBulan, &riwayatTahun);
-
-    // Konversi nama bulan menjadi angka
-    riwayatBulan = getMonthNumber(namaBulan);
-
-    // Melakukan perbandingan tanggal
-    if (riwayatTahun > tahun) return 1;
-    if (riwayatTahun < tahun) return -1;
-    if (riwayatBulan > bulan) return 1;
-    if (riwayatBulan < bulan) return -1;
-    if (riwayatHari > hari) return 1;
-    if (riwayatHari < hari) return -1;
-    return 0; // Dates are equal
 }
 
 // Fungsi untuk membandingkan tanggal dengan range tanggal (hari1, bulan1, tahun1 hingga hari2, bulan2, tahun2)
@@ -73,35 +47,41 @@ int compareDatesRange(const char *tanggal, int hari1, int bulan1, int tahun1, in
     }
 }
 
-// Pasien yang harus datang hari ini
-void printPatientsByDate(int hari, int bulan, int tahun) {
-    riwayatDatang *currentRiwayat = head_riwayatDatang; 
-
-    while (currentRiwayat != NULL) {
-        if (compareDates(currentRiwayat->tanggal, hari, bulan, tahun) == 0) {
-            // Print patient details
-            printf("ID Pasien: %s\n", currentRiwayat->id);
-            printf("Diagnosis: %s\n", currentRiwayat->diagnosis);
-            printf("Tanggal: %s\n", currentRiwayat->tanggal);
-            printf("---------------------------\n");
-        }
-        currentRiwayat = currentRiwayat->next;
-    }
-}
-
 // Print pasien yang harus datang dalam seminggu kedepan
 void printPatientsByDateRange(int hari1, int bulan1, int tahun1, int hari2, int bulan2, int tahun2) {
     riwayatDatang *currentRiwayat = head_riwayatDatang; 
+    int count = 0;
 
     while (currentRiwayat != NULL) {
-        if (compareDatesRange(currentRiwayat->tanggal, hari1, bulan1, tahun1, hari2, bulan2, tahun2) >= 0) {
+        if (compareDatesRange(currentRiwayat->tanggal, hari1, bulan1, tahun1, hari2, bulan2, tahun2) == 0) {
             // Print patient details
             printf("ID Pasien: %s\n", currentRiwayat->id);
             printf("Diagnosis: %s\n", currentRiwayat->diagnosis);
             printf("Tanggal: %s\n", currentRiwayat->tanggal);
             printf("---------------------------\n");
+            count += 1;
         }
         currentRiwayat = currentRiwayat->next;
+    }
+
+    if (count == 0){
+        printf("Tidak ada pasien yang perlu datang kembali");
+    }
+    printf("\n");
+}
+
+int daysInMonth(int month, int year){
+    switch(month){
+        case 2:
+            if((year % 4 == 0 && year % 100 !=0) || (year % 400 == 0)){
+                return 28;
+            } else {
+                return 28;
+            }
+        case 4: case 6: case 9: case 11:
+            return 30;
+        default:
+            return 31;
     }
 }
 
@@ -113,7 +93,7 @@ void fitur6() {
 
   // Input dari user date
     int hari, bulan, tahun;
-    printf("Masukkan tanggal sekarang (hari bulan tahun): ");
+    printf("Masukkan tanggal sekarang (DD MM YYYY): ");
     scanf("%d %d %d", &hari, &bulan, &tahun);
 
     // Program menghitung tanggal kedepan (diperlukan untuk mengprint pasien yang perlu datang 1 minggu kedepan)
@@ -121,18 +101,16 @@ void fitur6() {
     int nextBulan = bulan;
     int nextTahun = tahun;
 
-    if (nextHari > 31) { // Assumsi 1 bulan 31 hari
-        nextHari -= 31;
+    int jmlh_hr_bln_ini = daysInMonth(bulan, tahun);
+
+    if (nextHari > jmlh_hr_bln_ini) {
+        nextHari -= jmlh_hr_bln_ini;
         nextBulan++;
         if (nextBulan > 12) {
             nextBulan = 1;
             nextTahun++;
         }
     }
-
-    // Print pasien yang perlu datang hari ini
-    printf("\nPasien yang perlu datang kembali hari ini (%d %d %d):\n", hari, bulan, tahun);
-    printPatientsByDate(hari, bulan, tahun);
 
     // Print patients yang perlu datang 1 minggu kedepan
     printf("\nPasien yang perlu datang kembali dalam 1 minggu kedepan (%d %d %d - %d %d %d):\n",
