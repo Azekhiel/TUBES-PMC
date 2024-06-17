@@ -41,5 +41,6 @@ void fitur3() {
         }
         currentRiwayat = currentRiwayat->next;
     }
+    printf("\n");
 }
 

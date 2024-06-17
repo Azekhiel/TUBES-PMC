@@ -9,6 +9,15 @@ int main(){
     int fitur;
 
     while (implementasi != 7){
+        printf("Daftar implementasi : \n");
+        printf("1. Data pasien yang datang ke klinik\n");
+        printf("2. Riwayat pasien yang datang ke klinik\n");
+        printf("3. Informasi dan riwayat medis\n");
+        printf("4. Informasi laporan pendapatan\n");
+        printf("5. Informasi jumlah pasien dan penyakit yang diderita\n");
+        printf("6. Informasi terkait pasien yang perlu datang kembali\n");
+        printf("7. Exit");
+        printf("\n");
         printf("Masukkan implementasi yang diinginkan : ");
         scanf("%d", &implementasi);
         printf("\n");
@@ -17,8 +26,15 @@ int main(){
 
             // Implementasi 1 data pasien yang datang ke klinik x
             case 1:
+                printf("Daftar fitur : \n");
+                printf("1. Menambah data pasien\n");
+                printf("2. Mengubah data pasien\n");
+                printf("3. Menghapus data pasien\n");
+                printf("4. Mencari data pasien\n");
+                printf("\n");
                 printf("Masukkan fitur yang diinginkan : ");
                 scanf("%d", &fitur);
+                printf("\n");
 
                 switch(fitur){
 
@@ -49,8 +65,15 @@ int main(){
             // Implementasi 2 riwayat kedatangan, diagnosis, dan tindakan 
             // pada pasien yang datang ke klinik x
             case 2:
+                printf("Daftar fitur :\n");
+                printf("1. Menambah data riwayat kedatangan, diagnosis, dan tindakan\n");
+                printf("2. Mengubah data riwayat kedatangan, diagnosis, dan tindakan\n");
+                printf("3. Menghapus data riwayat kedatangan, diagnosis, dan tindakan\n");
+                printf("4. Mencari data riwayat kedatangan, diagnosis, dan tindakan\n");
+                printf("\n");
                 printf("Masukkan fitur yang diinginkan : ");
                 scanf("%d", &fitur);
+                printf("\n");
 
                 switch(fitur){
 

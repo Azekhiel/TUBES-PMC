@@ -62,32 +62,35 @@ void tambah_data_pasien()
     {
         dataPasien *dp2 = (dataPasien*)malloc(sizeof(dataPasien));
         dp2->no = nomor+i+1;
-        printf("Masukkan nama pasien : ");
+        printf("Masukkan nama pasien            : ");
         getchar(); 
         scanf("%[^\n]", dp2->nama);
-        printf("Masukkan alamat pasien : ");
+        printf("Masukkan alamat pasien          : ");
         getchar(); 
         scanf("%[^\n]", dp2->alamat);
-        printf("Masukkan kota pasien : ");
+        printf("Masukkan kota pasien            : ");
         getchar(); 
         scanf("%[^\n]", dp2->kota);
-        printf("Masukkan tempat lahir pasien : ");
+        printf("Masukkan tempat lahir pasien    : ");
         getchar(); 
         scanf("%[^\n]", dp2->tempat_lahir);
-        printf("Masukkan tanggal lahir pasien : ");
+        printf("Masukkan tanggal lahir pasien   : ");
         getchar(); 
         scanf("%[^\n]", dp2->tanggal_lahir);
-        printf("Masukkan umur pasien : ");
+        printf("Masukkan umur pasien            : ");
         scanf("%d",&dp2->umur);
-        printf("Masukkan nomorBPJS pasien : ");
+        printf("Masukkan nomorBPJS pasien       : ");
         scanf("%s",dp2->noBPJS);
-        printf("Masukkan id pasien : ");
+        printf("Masukkan id pasien              : ");
         getchar(); 
         scanf("%[^\n]", dp2->id);
         dp2->next = NULL;
 
         insert(temp,dp2);
     }
+    printf("\n");
+    printf("Tambah data pasien berhasil");
+    printf("\n");
 }
 
 void ubah_data_pasien()
@@ -160,6 +163,9 @@ void ubah_data_pasien()
         }
         current = current->next;
     }
+    printf("\n");
+    printf("Ubah data pasien berhasil");
+    printf("\n");
 }
 
 void hapus_data_pasien()
@@ -169,6 +175,9 @@ void hapus_data_pasien()
     getchar(); 
     scanf("%[^\n]", hapusid);
     deletekey(&head_dataPasien,hapusid);
+    printf("\n");
+    printf("Hapus data pasien berhasil");
+    printf("\n");
 }
 
 void cari_data_pasien()
@@ -177,9 +186,10 @@ void cari_data_pasien()
     printf("Masukkan id pasien yang ingin dicari : ");
     getchar(); 
     scanf("%[^\n]", cariid);
+    printf("\n");
 
     dataPasien *current = head_dataPasien;
-    while(strcmp(current->id,cariid)!=0)
+    while(current != NULL && strcmp(current->id,cariid)==0)
     {
         current = current->next;
     }
@@ -192,4 +202,5 @@ void cari_data_pasien()
     printf("Umur Pasien : %d\n",current->umur);
     printf("Nomor BPJS Pasien : %s\n",current->noBPJS);
     printf("ID Pasien : %s\n",current->id);
+    printf("\n");
 }
