@@ -49,8 +49,9 @@ void bacaDataPasien(char *filename) {
     }
     char line[255];
     fgets(line, sizeof(line), file);
-    fgets(line, sizeof(line), file);
-
+    if (line[0]==','){
+        fgets(line, sizeof(line), file);
+    }
 
     while (fgets(line, sizeof(line), file)) {
         char *token;
@@ -109,7 +110,9 @@ void bacaRiwayatDatang(char *filename) {
     char line[255];
     char temp[255];
     fgets(line, sizeof(line), file);
-    fgets(line, sizeof(line), file);
+    if (line[0]==','){
+        fgets(line, sizeof(line), file);
+    }
 
     while (fgets(line, sizeof(line), file)) {
         char *token;
@@ -170,6 +173,9 @@ void bacaBiayaTindakan(char *filename) {
     char line[255];
     char temp[255];
     fgets(line, sizeof(line), file);
+    if (line[0]==','){
+        fgets(line, sizeof(line), file);
+    }
 
     while (fgets(line, sizeof(line), file)) {
         char *token;
