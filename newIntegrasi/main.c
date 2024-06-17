@@ -1,14 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "fitur1.h"
-#include "fitur2.h"
-#include "fitur3.h"
-#include "fitur4.h"
-#include "fitur5.h"
-#include "fitur6.h"
-#include "simpan.h"
-#include "baca.h"
+#include "my_function.h"
 
 int main(){
     baca();
@@ -48,16 +41,19 @@ int main(){
                     // Menambah data pasien yang datang ke klinik x
                     case 1:
                         tambah_data_pasien();
+                        simpanDataPasien("DataPMC20232024 - Data Pasien.csv");
                         break;
 
                     // Mengubah data pasien yang datang ke klinik x
                     case 2:
                         ubah_data_pasien();
+                        simpanDataPasien("DataPMC20232024 - Data Pasien.csv");
                         break;
 
                     // Menghapus data pasien yang datang ke klinik x
                     case 3:
                         hapus_data_pasien();
+                        simpanDataPasien("DataPMC20232024 - Data Pasien.csv");
                         break;
 
                     // Mencari data pasien yang datang ke klinik x
@@ -87,16 +83,19 @@ int main(){
                     // Menambah data riwayat kedatangan, diagnosis, dan tindakan
                     case 1:
                         tambahRiwayat();
+                        simpanRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
                         break;
 
                     // Mengubah data riwayat kedatangan, diagnosis, dan tindakan
                     case 2:
                         ubahRiwayat();
+                        simpanRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
                         break;
 
                     // Menghapus data riwayat kedatangan, diagnosis, dan tindakan
                     case 3:
                         hapusRiwayat();
+                        simpanRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
                         break;
 
                     // Mencari data riwayat kedatangan, diagnosis, dan tindakan
