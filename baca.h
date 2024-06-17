@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #pragma once
-// Buat pake pake fungsi di header ini tinggal di program utama taro baca() di line paling awal
+
 //No,Nama Lengkap,Alamat,Kota,Tempat Lahir,Tanggal Lahir,Umur (th),No BPJS,ID Pasien
 typedef struct dataPasien{
     int no;
@@ -83,7 +83,6 @@ void bacaDataPasien(char *filename) {
         strcpy(newNode->id, token);
         temp = strlen(newNode->id);
         newNode->id[temp-1] = '\0';
-        newNode->id[temp-2] = '\0';
 
         newNode->next = NULL;
         if (head_dataPasien == NULL) {
@@ -160,6 +159,8 @@ void bacaRiwayatDatang(char *filename) {
     fclose(file);
 }
 
+
+
 void bacaBiayaTindakan(char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -180,6 +181,7 @@ void bacaBiayaTindakan(char *filename) {
 
         token = strtok(NULL, ",");
         newNode->biaya = atoi(token);
+        
 
         newNode->next = NULL;
         if (head_biayaTindakan == NULL) {
@@ -478,12 +480,20 @@ void rapikanFormatRiwayatDatang_Kontrol(){
     }
 }
 
+// void printDataPasien() {
+//     dataPasien *current = head_dataPasien;
+//     while (current != NULL) {
+//         printf("| %-2d | %-15s | %-18s | %-13s | %-14s | %-13s | %-4d | %-10s | %-9s |\n",
+//                current->no, current->nama, current->alamat, current->kota, current->tempat_lahir,
+//                current->tanggal_lahir, current->umur, current->noBPJS, current->id);
+//         current = current->next;
+//     }
+// }
+
 void printDataPasien() {
-    dataPasien *current = head_dataPasien;
+    riwayatDatang *current = head_riwayatDatang;
     while (current != NULL) {
-        printf("| %-2d | %-15s | %-18s | %-13s | %-14s | %-13s | %-4d | %-10s | %-9s |\n",
-               current->no, current->nama, current->alamat, current->kota, current->tempat_lahir,
-               current->tanggal_lahir, current->umur, current->noBPJS, current->id);
+        printf("| %d |\n",current->biaya);
         current = current->next;
     }
 }
