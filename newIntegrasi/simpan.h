@@ -21,22 +21,6 @@ void simpanDataPasien(char *filename) {
     fclose(file);
 }
 
-void simpanBiayaTindakan(char *filename) {
-    char header[][20]={"No","Aktivitas","Biaya (Rp)"};
-    FILE *file = fopen(filename, "w");
-    if (file == NULL) {
-        printf("Gagal membuka file %s untuk penulisan.\n", filename);
-        return;
-    }
-    biayaTindakan *current = head_biayaTindakan;
-    fprintf(file, "%s,%s,%s\n", header[0],header[1],header[2]);    
-    while (current != NULL) {
-        fprintf(file, "%d,%s,%d\n", current->no, current->aktivitas, current->biaya);
-        current = current->next;
-    }
-    fclose(file);
-}
-
 void simpanRiwayatDatang(char *filename) {
     char header[][20]={"No","Tanggal","ID Pasien","Diagnosis","Tindakan","Kontrol","Biaya (Rp)"};
     int i=1;
@@ -55,9 +39,7 @@ void simpanRiwayatDatang(char *filename) {
     fclose(file);
 }
 
-int simpan() {
-    simpanDataPasien("data_pasien.csv");
-    simpanBiayaTindakan("biaya_tindakan.csv");
-    simpanRiwayatDatang("riwayat_datang.csv");   
-    return 0;
+void simpan(char *file1, char *file2) {
+    simpanDataPasien(file1);
+    simpanRiwayatDatang(file2);   
 }
