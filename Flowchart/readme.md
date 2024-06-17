@@ -1,5 +1,7 @@
 File PNG ada dalam folder
 
+(FIle Visio bisa diconvert ke draw io)
+
 header baca: https://itbdsti-my.sharepoint.com/:u:/g/personal/13222061_mahasiswa_itb_ac_id/EbDfuDaI5ORFi7z2II28kIwBm8Orr0yeU3PiKwYH6CGzsA?e=GcOug8
 
 header simpan: https://itbdsti-my.sharepoint.com/:u:/g/personal/13222061_mahasiswa_itb_ac_id/ES-dPx2ay1RMlWDYNzn4lEYBjg7pvwPwsXQaCo1ub_HNww?e=jWo5X8
