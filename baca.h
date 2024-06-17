@@ -108,6 +108,7 @@ void bacaRiwayatDatang(char *filename) {
         return;
     }
     char line[255];
+    char temp[255];
     fgets(line, sizeof(line), file);
     fgets(line, sizeof(line), file);
 
@@ -134,6 +135,14 @@ void bacaRiwayatDatang(char *filename) {
 
         token = strtok(NULL, ",");
         newNode->biaya = atoi(token);
+        if (newNode->biaya ==0){
+            strcpy(temp,token);
+            token =strtok(NULL,",");
+            strcat(temp,token);
+            char *cleaned = temp + 1;
+            cleaned[strlen(cleaned)-2]='\0';
+            newNode->biaya = atoi(cleaned);
+        }
 
         newNode->next = NULL;
         if (head_riwayatDatang == NULL) {
@@ -150,8 +159,6 @@ void bacaRiwayatDatang(char *filename) {
 
     fclose(file);
 }
-
-
 
 void bacaBiayaTindakan(char *filename) {
     FILE *file = fopen(filename, "r");
