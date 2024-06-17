@@ -4,12 +4,16 @@ void hapusRiwayat(){
     riwayatDatang *current = head_riwayatDatang;
     riwayatDatang *prev = NULL;
     char idPasien[255];
+    printf("Masukkan ID Pasien: ");
     fgets(idPasien,sizeof(idPasien),stdin);
     idPasien[strcspn(idPasien, "\n")] = '\0'; 
     
     while (current!=NULL){
         if (strcmp(current->id,idPasien)==0 && prev!=NULL){
             prev->next = current->next;
+        }
+        if (strcmp(current->id,idPasien)==0 && prev==NULL){
+            head_riwayatDatang = current->next;
         }
         prev = current;
         current = current->next;        
