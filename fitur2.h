@@ -30,7 +30,7 @@ void ubahRiwayat(){
 
     while (current!=NULL){
         if (strcmp(current->id,idPasien)==0){
-            print("Data Pasien (%s) ke-%d",idPasien,i);
+            printf("Data Pasien (%s) ke-%d",idPasien,i);
             printf("Tanggal: ");
             fgets(current->tanggal,sizeof(current->tanggal),stdin);
             current->tanggal[strcspn(current->tanggal, "\n")] = '\0'; 
