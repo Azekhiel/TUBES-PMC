@@ -3,7 +3,8 @@
 
 #include "my_function.h"
 
-int main(){    char fileDataPasien[255];
+int main(){    
+    char fileDataPasien[255];
     char fileBiayaTindakan[255];
     char fileRiwayat[255];
     printf("Masukkan Nama File Data Pasien: ");
