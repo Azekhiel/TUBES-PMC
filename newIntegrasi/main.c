@@ -3,11 +3,25 @@
 
 #include "my_function.h"
 
-int main(){
-    baca();
+int main(){    char fileDataPasien[255];
+    char fileBiayaTindakan[255];
+    char fileRiwayat[255];
+    printf("Masukkan Nama File Data Pasien: ");
+    fgets(fileDataPasien,sizeof(fileDataPasien),stdin);
+    fileDataPasien[strcspn(fileDataPasien, "\n")] = '\0';
+
+    printf("Masukkan Nama File Biaya Tindakan: ");
+    fgets(fileBiayaTindakan,sizeof(fileBiayaTindakan),stdin);
+    fileBiayaTindakan[strcspn(fileBiayaTindakan, "\n")] = '\0';
+
+    printf("Masukkan Nama File Riwayat Datang, Diagnosa, Tindakan: ");
+    fgets(fileRiwayat,sizeof(fileRiwayat),stdin);
+    fileRiwayat[strcspn(fileRiwayat, "\n")] = '\0';
+    
+    baca(fileDataPasien,fileBiayaTindakan,fileRiwayat);
     int implementasi;
     int fitur;
-
+           
     while (implementasi != 7){
         printf("Daftar implementasi : \n");
         printf("1. Data pasien yang datang ke klinik\n");
@@ -41,19 +55,19 @@ int main(){
                     // Menambah data pasien yang datang ke klinik x
                     case 1:
                         tambah_data_pasien();
-                        simpanDataPasien("DataPMC20232024 - Data Pasien.csv");
+                        simpanDataPasien(fileDataPasien);
                         break;
 
                     // Mengubah data pasien yang datang ke klinik x
                     case 2:
                         ubah_data_pasien();
-                        simpanDataPasien("DataPMC20232024 - Data Pasien.csv");
+                        simpanDataPasien(fileDataPasien);
                         break;
 
                     // Menghapus data pasien yang datang ke klinik x
                     case 3:
                         hapus_data_pasien();
-                        simpanDataPasien("DataPMC20232024 - Data Pasien.csv");
+                        simpanDataPasien(fileDataPasien);
                         break;
 
                     // Mencari data pasien yang datang ke klinik x
@@ -83,19 +97,19 @@ int main(){
                     // Menambah data riwayat kedatangan, diagnosis, dan tindakan
                     case 1:
                         tambahRiwayat();
-                        simpanRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
+                        simpanRiwayatDatang(fileRiwayat);
                         break;
 
                     // Mengubah data riwayat kedatangan, diagnosis, dan tindakan
                     case 2:
                         ubahRiwayat();
-                        simpanRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
+                        simpanRiwayatDatang(fileRiwayat);
                         break;
 
                     // Menghapus data riwayat kedatangan, diagnosis, dan tindakan
                     case 3:
                         hapusRiwayat();
-                        simpanRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
+                        simpanRiwayatDatang(fileRiwayat);
                         break;
 
                     // Mencari data riwayat kedatangan, diagnosis, dan tindakan
@@ -144,7 +158,7 @@ int main(){
         }
     }
 
-    simpan();
+    simpan(fileDataPasien,fileRiwayat);
 
 
 
