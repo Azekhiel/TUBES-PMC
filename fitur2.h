@@ -23,6 +23,7 @@ void hapusRiwayat(){
 void ubahRiwayat(){
     riwayatDatang *current = head_riwayatDatang;
     char idPasien[255];
+    printf("Masukkan ID Pasien: ");
     fgets(idPasien,sizeof(idPasien),stdin);
     idPasien[strcspn(idPasien, "\n")] = '\0'; 
 
