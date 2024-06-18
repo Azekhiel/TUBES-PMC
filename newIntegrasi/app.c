@@ -225,7 +225,15 @@ void on_edit_data_pasien_edit_clicked(GtkWidget *widget, gpointer data) {
         const char *id = gtk_entry_get_text(GTK_ENTRY(id_entry));
         const char *type = gtk_entry_get_text(GTK_ENTRY(type_entry));
         const char *change = gtk_entry_get_text(GTK_ENTRY(change_entry));
-        ubah_data_pasien(id , type , change);
+        int result = ubah_data_pasien(id , type , change);
+        // Show result message dialog
+        GtkWidget *result_dialog = gtk_message_dialog_new(GTK_WINDOW(dialog),
+                                                          GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                          GTK_MESSAGE_INFO,
+                                                          GTK_BUTTONS_OK,
+                                                          result ? "Data pasien berhasil diubah" : "Gagal meengubah data pasien , cek ID dan Tipe data");
+        gtk_dialog_run(GTK_DIALOG(result_dialog));
+        gtk_widget_destroy(result_dialog);
 
         ;
     }
@@ -234,62 +242,257 @@ void on_edit_data_pasien_edit_clicked(GtkWidget *widget, gpointer data) {
     gtk_widget_destroy(dialog);
 }
 
-
+//Fitur 1 hapus data pasien
 void on_edit_data_pasien_hapus_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
+    GtkWidget *dialog;
+    GtkWidget *content_area;
+    GtkWidget *grid;
+    GtkWidget *id_label;
+    GtkWidget *id_entry;
 
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan ID");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
+    // Create a new dialog with buttons
+    dialog = gtk_dialog_new_with_buttons("Hapus Pasien",
+                                         GTK_WINDOW(data),
+                                         GTK_DIALOG_MODAL,
+                                         "_OK", GTK_RESPONSE_ACCEPT,
+                                         "_Batal", GTK_RESPONSE_REJECT,
+                                         NULL);
 
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
+    // Get the content area of the dialog
+    content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    grid = gtk_grid_new();
+    gtk_container_add(GTK_CONTAINER(content_area), grid);
 
-    GtkWidget *back_button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(back_button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), back_button, TRUE, TRUE, 0);
+    // Create and add the label and entry field to the grid
+    id_label = gtk_label_new("ID Pasien:");
+    id_entry = gtk_entry_new();
 
-    gtk_widget_show_all(main_window);
+    gtk_grid_attach(GTK_GRID(grid), id_label, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), id_entry, 1, 0, 1, 1);
+
+    // Show all widgets in the dialog
+    gtk_widget_show_all(dialog);
+
+    // Run the dialog and capture the response
+    gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (response == GTK_RESPONSE_ACCEPT) {
+        // Retrieve text from the entry field and call meow function
+        const char *hapusid = gtk_entry_get_text(GTK_ENTRY(id_entry));
+        int result = hapus_data_pasien(hapusid);
+        // Show result message dialog
+        GtkWidget *result_dialog = gtk_message_dialog_new(GTK_WINDOW(dialog),
+                                                          GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                          GTK_MESSAGE_INFO,
+                                                          GTK_BUTTONS_OK,
+                                                          result ? "Data pasien berhasil dihapus" : "Gagal meenghapus data pasien");
+        gtk_dialog_run(GTK_DIALOG(result_dialog));
+        gtk_widget_destroy(result_dialog);
+    }
+
+    // Destroy the dialog after handling the response
+    gtk_widget_destroy(dialog);
 }
 
+//FItur1 cari data pasien
+//Fungsi untuk display data
+void display_patient_data(GtkWidget *content_area, dataPasien *current) {
+    char buffer[256];
+
+    GtkWidget *label;
+
+    snprintf(buffer, sizeof(buffer), "Nomor Pasien: %d", current->no);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "Nama Pasien: %s", current->nama);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "Alamat Pasien: %s", current->alamat);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "Kota Pasien: %s", current->kota);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "Tempat Lahir Pasien: %s", current->tempat_lahir);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "Tanggal Lahir Pasien: %s", current->tanggal_lahir);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "Umur Pasien: %d", current->umur);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "Nomor BPJS Pasien: %s", current->noBPJS);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    snprintf(buffer, sizeof(buffer), "ID Pasien: %s", current->id);
+    label = gtk_label_new(buffer);
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+
+    gtk_widget_show_all(content_area);
+}
+//Fungsi untuk fitur sebenarnya
 void on_edit_data_pasien_cari_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
+    GtkWidget *dialog;
+    GtkWidget *content_area;
+    GtkWidget *grid;
+    GtkWidget *id_label;
+    GtkWidget *id_entry;
 
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan ID");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
+    // Create a new dialog with buttons
+    dialog = gtk_dialog_new_with_buttons("Cari Pasien",
+                                         GTK_WINDOW(data),
+                                         GTK_DIALOG_MODAL,
+                                         "_OK", GTK_RESPONSE_ACCEPT,
+                                         "_Batal", GTK_RESPONSE_REJECT,
+                                         NULL);
 
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
+    // Get the content area of the dialog
+    content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    grid = gtk_grid_new();
+    gtk_container_add(GTK_CONTAINER(content_area), grid);
 
-    GtkWidget *label = gtk_label_new("Data tidak ditemukan");
-    gtk_box_pack_start(GTK_BOX(main_box), label, TRUE, TRUE, 0);
+    // Create and add the label and entry field to the grid
+    id_label = gtk_label_new("ID Pasien:");
+    id_entry = gtk_entry_new();
 
-    GtkWidget *back_button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(back_button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), back_button, TRUE, TRUE, 0);
+    gtk_grid_attach(GTK_GRID(grid), id_label, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), id_entry, 1, 0, 1, 1);
 
-    gtk_widget_show_all(main_window);
+    // Show all widgets in the dialog
+    gtk_widget_show_all(dialog);
+
+    // Run the dialog and capture the response
+    gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (response == GTK_RESPONSE_ACCEPT) {
+        // Retrieve text from the entry field and search for patient data
+        const char *id = gtk_entry_get_text(GTK_ENTRY(id_entry));
+        dataPasien *data_pasien = cari_data_pasien(id);
+
+        // Remove existing widgets in the content area
+        GList *children, *iter;
+        children = gtk_container_get_children(GTK_CONTAINER(content_area));
+        for (iter = children; iter != NULL; iter = g_list_next(iter)) {
+            gtk_widget_destroy(GTK_WIDGET(iter->data));
+        }
+        g_list_free(children);
+
+        // Display the patient data
+        if (data_pasien != NULL) {
+            display_patient_data(content_area, data_pasien);
+        } else {
+            GtkWidget *error_label = gtk_label_new("Data pasien tidak ditemukan.");
+            gtk_container_add(GTK_CONTAINER(content_area), error_label);
+            gtk_widget_show(error_label);
+        }
+        // Show all the new widgets
+        gtk_widget_show_all(dialog);
+    } else {
+        gtk_widget_destroy(dialog);
+    }
 }
 
 void on_edit_data_pasien_tambah_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
+    GtkWidget *dialog, *content_area;
+    GtkWidget *grid;
+    GtkWidget *entry_no, *entry_nama, *entry_alamat, *entry_kota, *entry_tempat_lahir, *entry_tanggal_lahir, *entry_umur, *entry_noBPJS, *entry_id;
 
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan ID");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
+    // Create a new dialog with buttons
+    dialog = gtk_dialog_new_with_buttons("Tambah Pasien",
+                                         GTK_WINDOW(data),
+                                         GTK_DIALOG_MODAL,
+                                         "_OK", GTK_RESPONSE_ACCEPT,
+                                         "_Batal", GTK_RESPONSE_REJECT,
+                                         NULL);
 
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
+    // Get the content area of the dialog
+    content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    grid = gtk_grid_new();
+    gtk_container_add(GTK_CONTAINER(content_area), grid);
 
-    GtkWidget *back_button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(back_button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), back_button, TRUE, TRUE, 0);
+    // Create and add the entry fields to the grid
+    entry_no = gtk_entry_new();
+    entry_nama = gtk_entry_new();
+    entry_alamat = gtk_entry_new();
+    entry_kota = gtk_entry_new();
+    entry_tempat_lahir = gtk_entry_new();
+    entry_tanggal_lahir = gtk_entry_new();
+    entry_umur = gtk_entry_new();
+    entry_noBPJS = gtk_entry_new();
+    entry_id = gtk_entry_new();
 
-    gtk_widget_show_all(main_window);
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Isi data berikut untuk menambah pasien"), 0, 0, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Nama Pasien:"), 0, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_nama, 1, 1, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Alamat Pasien:"), 0, 2, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_alamat, 1, 2, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Kota Pasien:"), 0, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_kota, 1, 3, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Tempat Lahir Pasien:"), 0, 4, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_tempat_lahir, 1, 4, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Tanggal Lahir Pasien:"), 0, 5, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_tanggal_lahir, 1, 5, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Umur Pasien:"), 0, 6, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_umur, 1, 6, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("Nomor BPJS Pasien:"), 0, 7, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_noBPJS, 1, 7, 1, 1);
+
+    gtk_grid_attach(GTK_GRID(grid), gtk_label_new("ID Pasien:"), 0, 8, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), entry_id, 1, 8, 1, 1);
+
+    // Show all widgets in the dialog
+    gtk_widget_show_all(dialog);
+
+    // Run the dialog and capture the response
+    gint response = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (response == GTK_RESPONSE_ACCEPT) {
+        // Allocate memory for new dataPasien
+        dataPasien *new_data = g_malloc(sizeof(dataPasien));
+        new_data->next = NULL;
+
+        // Retrieve data from entries and set it to new_data
+        new_data->no = 0;
+        strcpy(new_data->nama, gtk_entry_get_text(GTK_ENTRY(entry_nama)));
+        strcpy(new_data->alamat, gtk_entry_get_text(GTK_ENTRY(entry_alamat)));
+        strcpy(new_data->kota, gtk_entry_get_text(GTK_ENTRY(entry_kota)));
+        strcpy(new_data->tempat_lahir, gtk_entry_get_text(GTK_ENTRY(entry_tempat_lahir)));
+        strcpy(new_data->tanggal_lahir, gtk_entry_get_text(GTK_ENTRY(entry_tanggal_lahir)));
+        new_data->umur = atoi(gtk_entry_get_text(GTK_ENTRY(entry_umur)));
+        strcpy(new_data->noBPJS, gtk_entry_get_text(GTK_ENTRY(entry_noBPJS)));
+        strcpy(new_data->id, gtk_entry_get_text(GTK_ENTRY(entry_id)));
+
+        // Call the tambah function
+        int result = tambah_data_pasien(new_data);
+
+        // Show result message dialog
+        GtkWidget *result_dialog = gtk_message_dialog_new(GTK_WINDOW(dialog),
+                                                          GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                          GTK_MESSAGE_INFO,
+                                                          GTK_BUTTONS_OK,
+                                                          result ? "Data pasien berhasil ditambah." : "Gagal menambah data pasien.");
+        gtk_dialog_run(GTK_DIALOG(result_dialog));
+        gtk_widget_destroy(result_dialog);
+
+        // Free new_data if tambah failed
+        if (!result) {
+            g_free(new_data);
+        }
+    }
+    gtk_widget_destroy(dialog);
 }
 
 void on_edit_riwayat_edit_clicked(GtkWidget *widget, gpointer data) {
@@ -372,6 +575,7 @@ void on_back_to_main_menu(GtkWidget *widget, gpointer data) {
 }
 
 int main(int argc, char *argv[]) {
+    baca("DataPMC20232024 - Data Pasien.csv","DataPMC20232024 - Biaya Tindakan.csv","DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
     gtk_init(&argc, &argv);
 
     main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
