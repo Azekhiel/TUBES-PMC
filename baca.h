@@ -83,7 +83,7 @@ void bacaDataPasien(char *filename) {
         token = strtok(NULL, ",");
         strcpy(newNode->id, token);
         temp = strlen(newNode->id);
-        newNode->id[temp-1] = '\0';
+        newNode->id[strcspn(newNode->id, "\n")] = '\0'; 
 
         newNode->next = NULL;
         if (head_dataPasien == NULL) {
@@ -272,7 +272,8 @@ void rapikanFormatDataPasien(){
             if ((current->tanggal_lahir[1] >= '0' && current->tanggal_lahir[1] <= '9')) {
                 temp_tanggal[1] = current->tanggal_lahir[1];
                 temp_tanggal[2] = ' ';
-            } else {
+            } 
+            else {
                 temp_tanggal[1] = ' ';
                 temp_tanggal[2] = '\0';
             }            
@@ -292,11 +293,13 @@ void rapikanFormatDataPasien(){
             if (atoi(temp_tahun) <= 24) {
                 strcpy(tahun, "20");
                 strcat(tahun, temp_tahun);
-            } else {
+            } 
+            else {
                 strcpy(tahun, "19");
                 strcat(tahun, temp_tahun);
             }
-        } else {
+        } 
+        else {
             strcpy(tahun, temp_tahun);
         }
 
@@ -513,12 +516,11 @@ void printDataPasien() {
     }
 }
 
-void baca() {
-    bacaDataPasien("DataPMC20232024 - Data Pasien.csv");
-    bacaBiayaTindakan("DataPMC20232024 - Biaya Tindakan.csv");
-    bacaRiwayatDatang("DataPMC20232024 - Riwayat Datang, Diag,, Tindakan.csv");
+void baca(char *file1, char *file2, char *file3) {
+    bacaDataPasien(file1);
+    bacaBiayaTindakan(file2);
+    bacaRiwayatDatang(file3);
     rapikanFormatDataPasien();
     rapikanFormatRiwayatDatang_Tanggal();
     rapikanFormatRiwayatDatang_Kontrol();
-    // printDataPasien();
 }
