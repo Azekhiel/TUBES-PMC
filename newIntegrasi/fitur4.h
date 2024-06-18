@@ -63,7 +63,7 @@ void show_monthly_and_yearly_income(GtkWidget *parent) {
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
     grid = gtk_grid_new();
     gtk_container_add(GTK_CONTAINER(content_area), grid);
-
+    gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
     // Display monthly income
     const char* monthNames[12] = {"Januari", "Februari", "Maret", "April", "Mei", "Juni",
                                   "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
