@@ -16,6 +16,13 @@
 //     return tahunMin;
 // }
 
+int cekTahun(char tahun[4]);
+int cekDiagnosa(char diagnosa[100]);
+int cekBulan(char bulan[20]);
+void bubbleSort(int arr[], int num[], int n);
+void sortMaximum(int count[8][12], int diagnosa);
+void fitur5();
+
 int cekTahun (char tahun[4]){
     if (tahun == NULL){
         return 0;
@@ -83,22 +90,6 @@ int cekBulan (char bulan[20]){
     }
 }
 
-void bubbleSort(int arr[], int num[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] < arr[j + 1]) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-
-                int temp_num = num[j];
-                num[j] = num[j+1];
-                num[j+1] = temp_num;
-            }
-        }
-    }
-}
-
 void sortMaximum(int count[8][12], int diagnosa){
     int sortedArray[12];
     int monthArray[12];
@@ -152,7 +143,65 @@ void sortMaximum(int count[8][12], int diagnosa){
     printf("\n");
 }
 
-void fitur5(){
+// Function to sort array in descending order
+void bubbleSort(int arr[], int num[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] < arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+
+                int temp_num = num[j];
+                num[j] = num[j+1];
+                num[j+1] = temp_num;
+            }
+        }
+    }
+}
+
+// Function to display the sorted maximum values in a GTK dialog
+void display_max_values(GtkWidget *parent, int count[][12], int diagnosa, int tahun , char *namapenyakit) {
+    // Create GTK dialog
+    GtkWidget *dialog, *content_area, *grid, *label;
+    dialog = gtk_dialog_new_with_buttons(namapenyakit,
+                                         GTK_WINDOW(parent),
+                                         GTK_DIALOG_MODAL,
+                                         "_NEXT=>", GTK_RESPONSE_OK,
+                                         NULL);
+    content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    grid = gtk_grid_new();
+    gtk_container_add(GTK_CONTAINER(content_area), grid);
+
+    // Prepare month names
+    const char* monthNames[12] = {"Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                                  "Juli", "Agustus", "September", "Oktober", "November", "Desember"};
+
+    // Sort and display values
+    int sortedArray[12];
+    int monthArray[12];
+    for (int i = 0; i < 12; i++) {
+        sortedArray[i] = count[diagnosa][i];
+        monthArray[i] = i + 1;
+    }
+    bubbleSort(sortedArray, monthArray, 12);
+
+    // Add labels to the grid
+    for (int i = 0; i < 12; i++) {
+        label = gtk_label_new(NULL);
+        gchar *text = g_strdup_printf("%s | %d", monthNames[monthArray[i] - 1], sortedArray[i]);
+        gtk_label_set_text(GTK_LABEL(label), text);
+        g_free(text);
+        gtk_grid_attach(GTK_GRID(grid), label, 0, i, 1, 1);
+    }
+
+    gtk_widget_show_all(dialog);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
+
+
+void fitur5(GtkWidget *widget) {
     riwayatDatang *current = head_riwayatDatang;
     int count[8][12] = {0};
     int tahun, diagnosa, bulan;
@@ -166,11 +215,9 @@ void fitur5(){
         strbulan = strtok(NULL, " ");
         strtahun = strtok(NULL, " ");
 
-        printf("%s %s %s \n", strhari, strbulan, strtahun);
-
         tahun = cekTahun(strtahun);
         diagnosa = cekDiagnosa(current->diagnosis);
-        bulan = cekBulan(strbulan);
+        bulan = bulanSama(strbulan);
 
         if (tahun == 22 && diagnosa > 0 && diagnosa <= 4 && bulan > 0 && bulan <= 12){
             count[diagnosa - 1][bulan - 1] += 1;
@@ -181,49 +228,13 @@ void fitur5(){
         current = current->next;
     }
 
-    for (int i = 0; i < 8; i++){
-        printf ("%d : ", i);
-        for (int j = 0; j < 12; j++){
-            printf("%d ", count[i][j]);
-        }
-        printf("\n");
-    }
-
-    for (int i = 0; i < 8; i++){
-        switch(i){
-            case 0:
-                printf("Dehidrasi 2022\n");
-                sortMaximum(count,i);
-                break;
-            case 1:
-                printf("Masuk Angin 2022\n");
-                sortMaximum(count,i);
-                break;
-            case 2:
-                printf("Keseleo 2022\n");
-                sortMaximum(count,i);
-                break;
-            case 3:
-                printf("Pusing 2022\n");
-                sortMaximum(count,i);
-                break;
-            case 4:
-                printf("Dehidrasi 2023\n");
-                sortMaximum(count,i);
-                break;
-            case 5:
-                printf("Masuk Angin 2023\n");
-                sortMaximum(count,i);
-                break;
-            case 6:
-                printf("Keseleo 2023\n");
-                sortMaximum(count,i);
-                break;
-            case 7:
-                printf("Pusing 2023\n");
-                sortMaximum(count,i);
-                break;
-        }
-    }
-    sortMaximum(count,0);
+    // Display results in GTK dialogs
+    display_max_values(widget, count, 0, 22 , "Dehidrasi 2022");
+    display_max_values(widget, count, 1, 22 , "Masuk angin 2023");
+    display_max_values(widget, count, 2, 22 , "Keseleo 2022");
+    display_max_values(widget, count, 3, 22 , "pusing 2022");
+    display_max_values(widget, count, 4, 23 , "Dehidrasi 2023");
+    display_max_values(widget, count, 5, 23, "Masuk angin 2023 ");
+    display_max_values(widget, count, 6, 23 , "Keseleo 2023");
+    display_max_values(widget, count, 7, 23 , "Pusing 2023");
 }

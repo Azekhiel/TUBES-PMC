@@ -108,75 +108,19 @@ void on_edit_riwayat_clicked(GtkWidget *widget, gpointer data) {
 }
 
 void on_info_pasien_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *label = gtk_label_new("Pasien ini sedang tidak available");
-    gtk_box_pack_start(GTK_BOX(main_box), label, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    fitur3();
 }
 
 void on_pendapatan_klinik_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *label = gtk_label_new("Data belum tersedia");
-    gtk_box_pack_start(GTK_BOX(main_box), label, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    fitur4();
 }
 
 void on_info_pasien_pertahun_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan tahun");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    fitur5(main_window);
 }
 
 void on_tanggal_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *entry_day = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry_day), "Masukkan hari");
-    gtk_box_pack_start(GTK_BOX(main_box), entry_day, TRUE, TRUE, 0);
-
-    GtkWidget *entry_month = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry_month), "Masukkan bulan");
-    gtk_box_pack_start(GTK_BOX(main_box), entry_month, TRUE, TRUE, 0);
-
-    GtkWidget *entry_year = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry_year), "Masukkan tahun");
-    gtk_box_pack_start(GTK_BOX(main_box), entry_year, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry_day);
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry_month);
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry_year);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    fitur6();
 }
 
 //fitur 1 edit data pasien
@@ -495,79 +439,22 @@ void on_edit_data_pasien_tambah_clicked(GtkWidget *widget, gpointer data) {
     gtk_widget_destroy(dialog);
 }
 
+//Fitur2 edit riwayat
 void on_edit_riwayat_edit_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan ID");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    GtkWidget *back_button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(back_button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), back_button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    ubahRiwayat(main_window);
 }
 
+//Fitur2 hapus riwayat 
 void on_edit_riwayat_hapus_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan ID");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    GtkWidget *back_button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(back_button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), back_button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    hapusRiwayat();
 }
 
 void on_edit_riwayat_cari_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan ID");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    GtkWidget *label = gtk_label_new("Data tidak ditemukan");
-    gtk_box_pack_start(GTK_BOX(main_box), label, TRUE, TRUE, 0);
-
-    GtkWidget *back_button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(back_button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), back_button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    cariRiwayat();
 }
 
 void on_edit_riwayat_tambah_clicked(GtkWidget *widget, gpointer data) {
-    clear_window();
-
-    GtkWidget *entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Masukkan ID");
-    gtk_box_pack_start(GTK_BOX(main_box), entry, TRUE, TRUE, 0);
-
-    GtkWidget *button = gtk_button_new_with_label("Submit");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_back_to_main_menu), entry);
-    gtk_box_pack_start(GTK_BOX(main_box), button, TRUE, TRUE, 0);
-
-    GtkWidget *back_button = gtk_button_new_with_label("Kembali");
-    g_signal_connect(back_button, "clicked", G_CALLBACK(on_back_to_main_menu), NULL);
-    gtk_box_pack_start(GTK_BOX(main_box), back_button, TRUE, TRUE, 0);
-
-    gtk_widget_show_all(main_window);
+    tambahRiwayat();
 }
 
 void on_back_to_main_menu(GtkWidget *widget, gpointer data) {
